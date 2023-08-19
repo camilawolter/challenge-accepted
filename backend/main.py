@@ -1,11 +1,7 @@
-import datetime
-import logging
-
 import re
 
 from flask import Flask, jsonify, request, abort
 from flask_restful import Resource, Api
-from flask.logging import default_handler as flask_handler
 
 from marshmallow import Schema, fields, validate
 
@@ -15,18 +11,6 @@ import json
 # Depending on the size of the locales.js file size, it may be worth loading it only once and keep it in memory during runtime.
 # For the forecast.js file it is likely worth scheduling a reload with, for instance, apscheduler in order to retrieve up-to-date forecast data at all times.
 # For this example usecase we will load the locales.js and forecast.js from disk every time an API call makes it necessary. This may be slow if a lot of API calls are issued. We recommend to "cache" the data in memory at least for 20 minutes or so.
-
-# Create a log file for each run of the back-end. For now we use the DEBUG log-level and add any type of useful information for debugging.
-now = datetime.datetime.now()
-now_string = now.strftime("%Y-%m-%d_%H-%M-%S")
-root_logger = logging.getLogger()
-root_logger.setLevel(logging.DEBUG)
-handler = logging.FileHandler(now_string+'.log', 'w', 'utf-8')
-FORMAT = "{%(lineno)4s: - %(funcName)28s() } %(message)s"
-formatter = logging.Formatter(FORMAT)
-handler.setFormatter(formatter)
-root_logger.addHandler(handler)
-root_logger.addHandler(flask_handler)
 
 # Here we create the flask app
 app = Flask(__name__)
@@ -98,13 +82,10 @@ class WeatherForecast(Resource):
             forecast_json = json.load(forecast_file)
             # If unit Fahrenheit is requested, substitute all temperature values according to the conversion formula
             if unit_temperature == "fahrenheit":
-                root_logger.debug(f"Converting Celsius to Fahrenheit")
                 forecast_json = nested_replace(forecast_json, FahrenheitFromCelsius, {"temperature"}, {"min", "max"})
             if unit_precipitation == "inch":
-                root_logger.debug(f"Converting Millimeters to Inch")
                 forecast_json = nested_replace(forecast_json, InchFromMillimeters, {"rain"}, {"precipitation"})
             filtered = [forecast for forecast in forecast_json if city_id == forecast['locale']['id']]
-            root_logger.debug(f"Forecast JSON: {forecast_json}")
         if filtered:
             return jsonify(filtered)
         output['error'] = f'No weather forecast was found for your city. Please contact our support team and inform the requested city_id: {city_id}.'

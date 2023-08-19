@@ -1,4 +1,4 @@
-import re
+import unidecode
 
 from flask import Flask, jsonify, request, abort
 from flask_restful import Resource, Api
@@ -6,6 +6,8 @@ from flask_restful import Resource, Api
 from marshmallow import Schema, fields, validate
 
 import json
+
+from unidecode import unidecode
 
 # General thoughts:
 # Depending on the size of the locales.js file size, it may be worth loading it only once and keep it in memory during runtime.
@@ -60,10 +62,11 @@ class AutocompleteCity(Resource):
         if errors:
             abort(400, str(errors))
         user_input_incomplete_city_name = request.args.get('user_input')
+        user_input_incomplete_city_name = unidecode(user_input_incomplete_city_name).lower()
         output = {}
         with open('base/locales.json', 'r') as city_options_file:
             city_options_json = json.load(city_options_file)
-            filtered = [{'id': city['id'], 'name': city['name'], 'state': city['state']} for city in city_options_json if user_input_incomplete_city_name in city['name']]
+            filtered = [{'id': city['id'], 'name': city['name'], 'state': city['state']} for city in city_options_json if user_input_incomplete_city_name in unidecode(city['name']).lower()]
         output['results'] = filtered
         return jsonify(output)
 
@@ -96,6 +99,5 @@ api.add_resource(AutocompleteCity, '/autocomplete_city')
 api.add_resource(WeatherForecast, '/weatherforecast')
 
 if __name__ == '__main__':
-    #app.run(debug=True)
-    app.run()
+    app.run(debug=True)
 

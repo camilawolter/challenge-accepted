@@ -24,5 +24,6 @@ Parameters:
 Example: https://climatempo-talent.rj.r.appspot.com/weatherforecast?city_id=3735&unit_temperature=fahrenheit&unit_precipitation=inch
 
 ## To Do
-* Documentação da API (Swagger?)
-* Remover caratéres especiais no autocomplete
+- [ ] Documentação da API (Swagger?)
+- [x] Remover caratéres especiais no autocomplete (completado em 19-08-2023 17:52)
+- [ ] Reincluir alguma forma de logging

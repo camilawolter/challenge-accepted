@@ -1,4 +1,5 @@
 flask
-flask-restx
+flask-restful
 flask-caching
+marshmallow
 unidecode

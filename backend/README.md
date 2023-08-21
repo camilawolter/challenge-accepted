@@ -27,3 +27,4 @@ Example: https://climatempo-talent.rj.r.appspot.com/weatherforecast?city_id=3735
 - [ ] Documentação da API (Swagger?)
 - [x] Remover caratéres especiais no autocomplete (completado em 19-08-2023 17:52)
 - [ ] Reincluir alguma forma de logging
+- [x] Ativer server-side caching

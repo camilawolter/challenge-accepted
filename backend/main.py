@@ -2,6 +2,7 @@ import unidecode
 
 from flask import Flask, jsonify, request, abort
 from flask_restful import Resource, Api
+from flask_caching import Cache
 
 from marshmallow import Schema, fields, validate
 
@@ -15,8 +16,13 @@ from unidecode import unidecode
 # For this example usecase we will load the locales.js and forecast.js from disk every time an API call makes it necessary. This may be slow if a lot of API calls are issued. We recommend to "cache" the data in memory at least for 20 minutes or so.
 
 # Here we create the flask app
+config = {
+    "CACHE_TYPE": "SimpleCache",
+    "CACHE_DEFAULT_TIMEOUT": 900
+}
 app = Flask(__name__)
 api = Api(app)
+cache = Cache(app, config=config)
 
 # Argument parsing
 # The autocomplete_city endpoint allows for and requires only one argument: The user input string
@@ -56,6 +62,8 @@ def nested_replace(structure, func, target_set_parent_key: set, target_set_key: 
         return structure
 
 class AutocompleteCity(Resource):
+    # Enable cache with 30 minutes timeout
+    @cache.cached(timeout=1800, query_string=True)
     def get(self):
         # Validate parameters
         errors = autocompletecity_schema.validate(request.args)
@@ -71,6 +79,8 @@ class AutocompleteCity(Resource):
         return jsonify(output)
 
 class WeatherForecast(Resource):
+    # Enable cache with 5 minutes timeout
+    @cache.cached(timeout=300, query_string=True)
     def get(self):
         # Validate parameters
         errors = weatherforecast_schema.validate(request.args)

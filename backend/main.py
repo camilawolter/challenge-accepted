@@ -27,7 +27,7 @@ autocomplete_city_parser = reqparse.RequestParser()
 autocomplete_city_parser.add_argument('user_input', required=True, type=str, help='Nome incompleto da cidade digitado pelo usuário.')
 # The weatherforecast endpoint requires as input the city_id (obtained through the autocomplete_city endpoint) and the desired units for temperature and precipitation.
 weatherforecast_parser = reqparse.RequestParser()
-weatherforecast_parser.add_argument('city_id', required=True, type=int, help='Número identificador do local')
+weatherforecast_parser.add_argument('city_id', required=True, type=int, help='Número identificador do local.')
 weatherforecast_parser.add_argument('unit_temperature', required=True, type=str, help='Unidade de temperatura: "celsius" ou "fahrenheit".')
 weatherforecast_parser.add_argument('unit_precipitation', required=True, type=str, help='Unidade de precipitação: "mm" ou "inch".')
 

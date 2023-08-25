@@ -30,7 +30,7 @@ autocomplete_city_parser.add_argument('user_input', required=True, type=str, hel
 # The weatherforecast endpoint requires as input the city_id (obtained through the autocomplete_city endpoint) and the desired units for temperature and precipitation.
 weatherforecast_parser = reqparse.RequestParser()
 weatherforecast_parser.add_argument('city_id', required=True, type=int, help='Número identificador do local.')
-weatherforecast_parser.add_argument('unit_temperature', required=True, type=str, help='Unidade de temperatura: "celsius" ou "fahrenheit".')
+weatherforecast_parser.add_argument('unit_temperature', required=True, type=str, help='Unidade de temperatura: "celsius" ou "C" ou "fahrenheit" ou "F".')
 weatherforecast_parser.add_argument('unit_precipitation', required=True, type=str, help='Unidade de precipitação: "mm" ou "inch".')
 
 def FahrenheitFromCelsius(temperature_celsius):
@@ -89,9 +89,9 @@ class WeatherForecast(Resource):
         with open('base/weather.json', 'r') as forecast_file:
             forecast_json = json.load(forecast_file)
             # If unit Fahrenheit is requested, substitute all temperature values according to the conversion formula.
-            if unit_temperature == "fahrenheit":
+            if unit_temperature in {"fahrenheit","F"}:
                 forecast_json = nested_replace(forecast_json, FahrenheitFromCelsius, {"temperature"}, {"min", "max"})
-            elif unit_temperature == "celsius":
+            elif unit_temperature in {"celsius", "C"}:
                 pass
             else:
                 return Response(f'Wrong unit for temperature: {unit_temperature}. Must be one of "celsius" and "fahrenheit".', status=400)

@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request, abort, Response
 from flask_restx import Api, Resource, reqparse
 from flask_caching import Cache
+from flask_cors import CORS
 
 import json
 
@@ -17,6 +18,7 @@ config = {
     "CACHE_DEFAULT_TIMEOUT": 900
 }
 app = Flask(__name__)
+CORS(app)
 app.config.SWAGGER_UI_DOC_EXPANSION = 'list'
 api = Api(app, version="0.1", title="Climatempo Talent REST API", description="Essa API fornece endpoints para acessar a autocompletação de nomes de cidades e a previsão do tempo.")
 cache = Cache(app, config=config)

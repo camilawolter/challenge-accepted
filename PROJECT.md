@@ -1,4 +1,4 @@
-# Projeto de Previsão do Tempo 
+# Projeto Challenge Accepted - Previsão do Tempo 
 
 ## Visão Geral
 
@@ -140,7 +140,7 @@ https://climatempo-talent.rj.r.appspot.com/autocomplete_city?user_input=Osas
           "max": 86,
           "min": 70
         },
-        "text": "Sol com muitas nuvens durante o dia. Per\u00edodos de nublado, com chuva a qualquer hora."
+        "text": "Sol com muitas nuvens durante o dia. Períodos de nublado, com chuva a qualquer hora."
       },
       {...},
       {...},

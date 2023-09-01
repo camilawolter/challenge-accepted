@@ -83,7 +83,6 @@ https://climatempo-talent.rj.r.appspot.com/
 
 **Link:** 
 https://climatempo-talent.rj.r.appspot.com/autocomplete_city?user_input=Osas
-
 </details>
 
 <details>

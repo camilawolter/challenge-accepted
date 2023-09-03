@@ -108,5 +108,5 @@ class WeatherForecast(Resource):
         return Response(f'No weather forecast was found for your city. Please contact our support team and inform the requested city_id: {city_id}.', status=400)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=5000)
 

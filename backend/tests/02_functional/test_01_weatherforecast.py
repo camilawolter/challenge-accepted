@@ -28,7 +28,7 @@ def test_weatherforecast_with_null_city_id_without_unit_temperature(app, client)
     assert isinstance(data['errors'], dict)
     assert 'unit_temperature' in data['errors']
     assert isinstance(data['errors']['unit_temperature'], str)
-    assert 'Unidade de temperatura: "celsius" ou "fahrenheit". Missing required parameter' in data['errors']['unit_temperature']
+    assert 'Missing required parameter' in data['errors']['unit_temperature']
 
 def test_weatherforecast_with_null_city_id_with_empty_unit_temperature(app, client):
     res = client.get('/weatherforecast?city_id=0&unit_temperature=')

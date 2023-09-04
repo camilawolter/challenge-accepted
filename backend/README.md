@@ -1,6 +1,7 @@
 # Back-end Flask Restful API
 ## API Documentation
 https://climatempo-talent.rj.r.appspot.com/
+BackUp: https://climatempotalent.larsdehlwes.com.br/
 
 ## API Endpoints
 ### Autocomplete da Cidade

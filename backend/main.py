@@ -3,6 +3,7 @@ from flask_restx import Api, Resource, reqparse
 from flask_caching import Cache
 from flask_cors import CORS
 
+import os
 import json
 
 from unidecode import unidecode
@@ -68,7 +69,9 @@ class AutocompleteCity(Resource):
         user_input_incomplete_city_name = args['user_input']
         user_input_incomplete_city_name = unidecode(user_input_incomplete_city_name).lower()
         output = {}
-        with open('base/locales.json', 'r') as city_options_file:
+        PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
+        json_url_locales = os.path.join(PROJECT_ROOT, 'base/locales.json')
+        with open(json_url_locales, 'r', encoding='utf-8') as city_options_file:
             city_options_json = json.load(city_options_file)
             filtered = [{'id': city['id'], 'name': city['name'], 'state': city['state']} for city in city_options_json if user_input_incomplete_city_name in unidecode(city['name']).lower()]
         output['results'] = filtered
@@ -86,7 +89,9 @@ class WeatherForecast(Resource):
         unit_temperature = args['unit_temperature']
         unit_precipitation = args['unit_precipitation']
         filtered = None
-        with open('base/weather.json', 'r') as forecast_file:
+        PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
+        json_url_weather = os.path.join(PROJECT_ROOT, 'base/weather.json')
+        with open(json_url_weather, 'r', encoding='utf-8') as forecast_file:
             forecast_json = json.load(forecast_file)
             # If unit Fahrenheit is requested, substitute all temperature values according to the conversion formula.
             if unit_temperature in {"fahrenheit","F"}:

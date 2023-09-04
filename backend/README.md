@@ -1,6 +1,7 @@
 # Back-end Flask Restful API
 ## API Documentation
 https://climatempo-talent.rj.r.appspot.com/
+
 BackUp: https://climatempotalent.larsdehlwes.com.br/
 
 ## API Endpoints
@@ -36,12 +37,15 @@ gcloud app deploy --project=<project-id>
 ```
 
 ### No seu provedor de nuvem preferido ou em um servidor dedicado
-Crie uma máquina virtual e utiliza o Dockerfile para realizar o deploy.
+Crie uma máquina virtual e utilize o Dockerfile para realizar o deploy.
+
+Em um servidor dedicado de Linux, também podemos utilizar WSGI em conjunto com nginx ou apache.
 
 ## To Do
 - [x] Documentação da API (Swagger?) (completado em 21-08-2023)
 - [x] Remover caratéres especiais no autocomplete (completado em 19-08-2023 17:52)
-- [ ] Reincluir alguma forma de logging
+- [ ] Reincluir alguma forma de logging além de erros críticos
 - [x] Ativar server-side caching (completado em 21-08-2023)
 - [x] Incluir testes automatizados (iniciado em 23-08-2023)
 - [x] Dockerfile (completado em 03-09-2023)
+- [ ] Copiar dados da base da dados para uma tablea SQL com acesso através de SQLite

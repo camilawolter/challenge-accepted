@@ -1,0 +1,6 @@
+flask
+flask-restx
+flask-caching
+flask-cors
+unidecode
+gunicorn
